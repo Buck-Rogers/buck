@@ -81,6 +81,7 @@ BITCOIN_CORE_H = \
   base58.h \
   bloom.h \
   blockencodings.h \
+  blocksize.h \
   chain.h \
   chainparams.h \
   chainparamsbase.h \
@@ -267,6 +268,8 @@ libbitcoin_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
+  blocksize.h \
+  blocksize.cpp \
   consensus/merkle.cpp \
   consensus/merkle.h \
   consensus/params.h \

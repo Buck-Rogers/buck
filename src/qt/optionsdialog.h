@@ -45,7 +45,7 @@ public:
 
 private Q_SLOTS:
     /* set OK button state (enabled / disabled) */
-    void setOkButtonState(bool fState);
+    void setOkButtonState();
     void on_resetButton_clicked();
     void on_okButton_clicked();
     void on_cancelButton_clicked();
@@ -65,6 +65,9 @@ private:
     Ui::OptionsDialog *ui;
     OptionsModel *model;
     QDataWidgetMapper *mapper;
+
+    bool okbutton_blocksize;
+    bool okbutton_proxy;
 };
 
 #endif // BITCOIN_QT_OPTIONSDIALOG_H
