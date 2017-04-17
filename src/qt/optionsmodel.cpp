@@ -18,7 +18,7 @@
 #include "netbase.h"
 #include "txdb.h" // for -dbcache defaults
 #include "intro.h" 
-#include "blocksize.h"
+#include "consensus/consensus.h"
 
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"

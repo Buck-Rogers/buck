@@ -1,5 +1,5 @@
 //
-// BlockSize.cpp
+// consensus.cpp
 //
 // Created on: 20/03/2017
 //
@@ -9,7 +9,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 
-#include "blocksize.h"
+#include "consensus/consensus.h"
 
 unsigned int MAX_BLOCK_BASE_SIZE = DEFAULT_MAX_BLOCK_BASE_SIZE;
 unsigned int MAX_BLOCK_WEIGHT = DEFAULT_MAX_BLOCK_WEIGHT;
