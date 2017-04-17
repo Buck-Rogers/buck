@@ -175,8 +175,9 @@ class FullBlockTest(ComparisonTestFramework):
         create_tx = self.create_tx
         create_and_sign_tx = self.create_and_sign_transaction
 
-        # these must be updated if consensus changes
-        MAX_BLOCK_SIGOPS = 20000
+        # These is not a hard coded const in the bitcoinbuck 
+        # implmentation. KISS by making this real big.
+        MAX_BLOCK_SIGOPS = 0x02000000 
 
 
         # Create a new block

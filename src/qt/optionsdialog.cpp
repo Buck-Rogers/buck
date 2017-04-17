@@ -292,11 +292,11 @@ void OptionsDialog::showRestartWarning(bool fPersistent)
 {
     ui->statusLabel->setStyleSheet("QLabel { color: red; }");
 
-    EmergentConsensus::BlockSize::BlockCount_t mmb, ebs;
+    int mmb, ebs;
     mmb = ui->MaximumGeneratedBlockSize->text().toInt();
     ebs = ui->ExcessiveBlockSize->text().toInt();
 
-    if ( EmergentConsensus::BlockSize::validateBlockSizeCfg(mmb,ebs) )
+    if ( mmb <= ebs )
     {
         ui->ExcessiveBlockSize->setStyleSheet("");
         ui->MaximumGeneratedBlockSize->setStyleSheet("");

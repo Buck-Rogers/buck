@@ -151,17 +151,17 @@ void OptionsModel::Init(bool resetSettings)
         
     // emergent consensus
     if (!settings.contains("MaximumGeneratedBlockSize"))
-        settings.setValue("MaximumGeneratedBlockSize", EmergentConsensus::BlockSize::defaultMaximumGeneratedBlockSize);
+        settings.setValue("MaximumGeneratedBlockSize", DEFAULT_MAX_BLOCK_BASE_SIZE);
     if (!SoftSetArg("-blockmaxsize", settings.value("MaximumGeneratedBlockSize").toString().toStdString()))
         addOverriddenOption("-blockmaxsize");
 
     if (!settings.contains("ExcessiveBlockSize"))
-        settings.setValue("ExcessiveBlockSize", EmergentConsensus::BlockSize::defaultExcessiveBlockSize);
+        settings.setValue("ExcessiveBlockSize", DEFAULT_MAX_BLOCK_BASE_SIZE);
     if (!SoftSetArg("-excessiveblocksize", settings.value("ExcessiveBlockSize").toString().toStdString()))
         addOverriddenOption("-excessiveblocksize");
 
     if (!settings.contains("ExcessiveAcceptanceDepth"))
-        settings.setValue("ExcessiveAcceptanceDepth", EmergentConsensus::BlockSize::defaultExcessiveAcceptanceDepth);
+        settings.setValue("ExcessiveAcceptanceDepth", 16);
     if (!SoftSetArg("-excessiveacceptdepth", settings.value("ExcessiveAcceptanceDepth").toString().toStdString()))
         addOverriddenOption("-excessiveacceptdepth");
 
