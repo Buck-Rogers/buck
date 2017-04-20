@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
+    <width>566</width>
     <height>440</height>
    </rect>
   </property>
@@ -667,10 +667,10 @@
          </rect>
         </property>
         <property name="text">
-         <string>Maximum Generated Block Size (Bytes)</string>
+         <string>Maximum Generated Block Weight (Bytes)</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="MaximumGeneratedBlockSize">
+       <widget class="QLineEdit" name="MaximumGeneratedBlockWeight">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -696,7 +696,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;The largest block that shall be mined by this miner.&lt;/span&gt; This should be the current block size until miners consensus is reached for a blocksize increase. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;The maximum block weight of a block that can be mined by this miner.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="maxLength">
          <number>1000000000</number>
@@ -709,7 +709,7 @@ p, li { white-space: pre-wrap; }
          <x>10</x>
          <y>90</y>
          <width>521</width>
-         <height>111</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="title">
@@ -728,10 +728,10 @@ p, li { white-space: pre-wrap; }
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Excessive Block Size (Bytes)</string>
+         <string>Maximum Consensus Block Weight (Bytes)</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="ExcessiveBlockSize">
+       <widget class="QLineEdit" name="MaximumConsensusBlockWeight">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -753,48 +753,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;This is the maximum blocksize that this node will accept as a valid block.&lt;/span&gt; Blocks above this size shall be considered 'excessive', that is they will not be relayed or become part of the chain until 'Excessive Acceptance' blocks have been mined on top of them.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="maxLength">
-         <number>1000000000</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_3">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>60</y>
-          <width>331</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Excessive Acceptance Depth (Blocks)</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="ExcessiveAcceptanceDepth">
-        <property name="geometry">
-         <rect>
-          <x>380</x>
-          <y>60</y>
-          <width>128</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>128</width>
-          <height>1</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>128</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;The excessive acceptance depth in blocks.&lt;/span&gt; An excessive block normally blocks a chain from being accepted. However, if the chain grows deaper than this depth, then accept the excessive block (and the chain). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;This is the maximum block weight that this node will accept as a valid block.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="maxLength">
          <number>1000000000</number>

@@ -19,6 +19,7 @@
 #include "txdb.h" // for -dbcache defaults
 #include "intro.h" 
 #include "consensus/consensus.h"
+#include "policy/policy.h"
 
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
@@ -149,21 +150,19 @@ void OptionsModel::Init(bool resetSettings)
     if (!SoftSetArg("-lang", settings.value("language").toString().toStdString()))
         addOverriddenOption("-lang");
         
-    // emergent consensus
+    if (!settings.contains("MaximumGeneratedBlockWeight"))
+        settings.setValue("MaximumGeneratedBlockWeight", DEFAULT_BLOCK_MAX_WEIGHT);
+    if (!SoftSetArg("-blockmaxweight", settings.value("MaximumGeneratedBlockWeight").toString().toStdString()))
+        addOverriddenOption("-blockmaxweight");
     if (!settings.contains("MaximumGeneratedBlockSize"))
-        settings.setValue("MaximumGeneratedBlockSize", DEFAULT_MAX_BLOCK_BASE_SIZE);
+        settings.setValue("MaximumGeneratedBlockSize", DEFAULT_BLOCK_MAX_SIZE);
     if (!SoftSetArg("-blockmaxsize", settings.value("MaximumGeneratedBlockSize").toString().toStdString()))
         addOverriddenOption("-blockmaxsize");
 
-    if (!settings.contains("ExcessiveBlockSize"))
-        settings.setValue("ExcessiveBlockSize", DEFAULT_MAX_BLOCK_BASE_SIZE);
-    if (!SoftSetArg("-excessiveblocksize", settings.value("ExcessiveBlockSize").toString().toStdString()))
-        addOverriddenOption("-excessiveblocksize");
-
-    if (!settings.contains("ExcessiveAcceptanceDepth"))
-        settings.setValue("ExcessiveAcceptanceDepth", 16);
-    if (!SoftSetArg("-excessiveacceptdepth", settings.value("ExcessiveAcceptanceDepth").toString().toStdString()))
-        addOverriddenOption("-excessiveacceptdepth");
+    if (!settings.contains("MaximumConsensusBlockWeight"))
+        settings.setValue("MaximumConsensusBlockWeight", DEFAULT_MAX_BLOCK_WEIGHT);
+    if (!SoftSetArg("-consensusblockmaxweight", settings.value("MaximumConsensusBlockWeight").toString().toStdString()))
+        addOverriddenOption("-consensusblockmaxweight");
 
     language = settings.value("language").toString();
 }
@@ -266,12 +265,10 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("fListen");
             
         // blocksize tab    
-        case MaximumGeneratedBlockSize:
-			return settings.value("MaximumGeneratedBlockSize"); 
-        case ExcessiveBlockSize:
-			return settings.value("ExcessiveBlockSize");
-        case ExcessiveAcceptanceDepth:
-			return settings.value("ExcessiveAcceptanceDepth");     
+        case MaximumGeneratedBlockWeight:
+			return settings.value("MaximumGeneratedBlockWeight");
+        case MaximumConsensusBlockWeight:
+			return settings.value("MaximumConsensusBlockWeight");
             
         default:
             return QVariant();
@@ -421,23 +418,15 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
                 setRestartRequired(true);
             }
             break;
-            
-        // blocksize tab    
-        case MaximumGeneratedBlockSize:
-            if (settings.value("MaximumGeneratedBlockSize") != value) {
-                settings.setValue("MaximumGeneratedBlockSize", value);
+        case MaximumGeneratedBlockWeight:
+            if (settings.value("MaximumGeneratedBlockWeight") != value) {
+                settings.setValue("MaximumGeneratedBlockWeight", value);
                 setRestartRequired(true);
             }
             break;
-        case ExcessiveBlockSize:
-            if (settings.value("ExcessiveBlockSize") != value) {
-                settings.setValue("ExcessiveBlockSize", value);
-                setRestartRequired(true);
-            }
-            break;
-        case ExcessiveAcceptanceDepth:
-            if (settings.value("ExcessiveAcceptanceDepth") != value) {
-                settings.setValue("ExcessiveAcceptanceDepth", value);
+        case MaximumConsensusBlockWeight:
+            if (settings.value("MaximumConsensusBlockWeight") != value) {
+                settings.setValue("MaximumConsensusBlockWeight", value);
                 setRestartRequired(true);
             }
             break;        

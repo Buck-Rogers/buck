@@ -35,7 +35,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     ui(new Ui::OptionsDialog),
     model(0),
     mapper(0),
-    okbutton_blocksize(true),
+    okbutton_blockweight(true),
     okbutton_proxy(true)
 {
     ui->setupUi(this);
@@ -116,10 +116,8 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     ui->thirdPartyTxUrls->setPlaceholderText("https://example.com/tx/%s");
 #endif
 
-    /* Unified tab init */
-    ui->MaximumGeneratedBlockSize->setValidator(new QIntValidator(0, 0x7FFFFFFF, this));
-    ui->ExcessiveBlockSize->setValidator(new QIntValidator(0, 0x7FFFFFFF, this));
-    ui->ExcessiveAcceptanceDepth->setValidator(new QIntValidator(0, 0x7FFFFFFF, this));
+    ui->MaximumGeneratedBlockWeight->setValidator(new QIntValidator(0, 0x7FFFFFFF, this));
+    ui->MaximumConsensusBlockWeight->setValidator(new QIntValidator(0, 0x7FFFFFFF, this));
     
     ui->unit->setModel(new BitcoinUnits(this));
 
@@ -178,10 +176,9 @@ void OptionsDialog::setModel(OptionsModel *_model)
     /* Display */
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
-    /* Blocksize */
-    connect(ui->MaximumGeneratedBlockSize, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
-    connect(ui->ExcessiveBlockSize, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
-    connect(ui->ExcessiveAcceptanceDepth, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
+    /* Blockweight */
+    connect(ui->MaximumGeneratedBlockWeight, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
+    connect(ui->MaximumConsensusBlockWeight, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
     
 }
 
@@ -220,16 +217,15 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->thirdPartyTxUrls, OptionsModel::ThirdPartyTxUrls);
     
-    /* blocksize */
-    mapper->addMapping(ui->MaximumGeneratedBlockSize, OptionsModel::MaximumGeneratedBlockSize);
-    mapper->addMapping(ui->ExcessiveBlockSize, OptionsModel::ExcessiveBlockSize);
-    mapper->addMapping(ui->ExcessiveAcceptanceDepth, OptionsModel::ExcessiveAcceptanceDepth);
+    /* Blockweight */
+    mapper->addMapping(ui->MaximumGeneratedBlockWeight, OptionsModel::MaximumGeneratedBlockWeight);
+    mapper->addMapping(ui->MaximumConsensusBlockWeight, OptionsModel::MaximumConsensusBlockWeight);
     
 }
 
 void OptionsDialog::setOkButtonState()
 {
-    ui->okButton->setEnabled(okbutton_blocksize | okbutton_proxy);
+    ui->okButton->setEnabled(okbutton_blockweight | okbutton_proxy);
 }
 
 void OptionsDialog::on_resetButton_clicked()
@@ -291,24 +287,24 @@ void OptionsDialog::showRestartWarning(bool fPersistent)
 {
     ui->statusLabel->setStyleSheet("QLabel { color: red; }");
 
-    int mmb, ebs;
-    mmb = ui->MaximumGeneratedBlockSize->text().toInt();
-    ebs = ui->ExcessiveBlockSize->text().toInt();
+    int mgbw, mcbw;
+    mgbw = ui->MaximumGeneratedBlockWeight->text().toInt();
+    mcbw = ui->MaximumConsensusBlockWeight->text().toInt();
 
-    if ( mmb <= ebs )
+    if ( mgbw <= mcbw )
     {
-        ui->ExcessiveBlockSize->setStyleSheet("");
-        ui->MaximumGeneratedBlockSize->setStyleSheet("");
-        okbutton_blocksize = true;
+        ui->MaximumGeneratedBlockWeight->setStyleSheet("");
+        ui->MaximumConsensusBlockWeight->setStyleSheet("");
+        okbutton_blockweight = true;
         setOkButtonState();
     }
     else
     {
         // data is OOR
-        ui->statusLabel->setText(tr("Mined block size cannot be larger then excessive block size!"));
-        ui->MaximumGeneratedBlockSize->setStyleSheet("QLineEdit {  background-color: red; }");
-        ui->ExcessiveBlockSize->setStyleSheet("QLineEdit { background-color: red; }");
-        okbutton_blocksize = false;
+        ui->statusLabel->setText(tr("Mined block weight cannot be larger then consensus block weight!"));
+        ui->MaximumGeneratedBlockWeight->setStyleSheet("QLineEdit { background-color: red; }");
+        ui->MaximumConsensusBlockWeight->setStyleSheet("QLineEdit { background-color: red; }");
+        okbutton_blockweight = false;
         setOkButtonState();
         return;
     }

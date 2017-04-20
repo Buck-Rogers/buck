@@ -67,7 +67,7 @@ private:
     OptionsModel *model;
     QDataWidgetMapper *mapper;
 
-    bool okbutton_blocksize;
+    bool okbutton_blockweight;
     bool okbutton_proxy;
 };
 
