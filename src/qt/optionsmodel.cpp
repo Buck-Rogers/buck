@@ -154,6 +154,7 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("MaximumGeneratedBlockWeight", DEFAULT_BLOCK_MAX_WEIGHT);
     if (!SoftSetArg("-blockmaxweight", settings.value("MaximumGeneratedBlockWeight").toString().toStdString()))
         addOverriddenOption("-blockmaxweight");
+
     if (!settings.contains("MaximumGeneratedBlockSize"))
         settings.setValue("MaximumGeneratedBlockSize", DEFAULT_BLOCK_MAX_SIZE);
     if (!SoftSetArg("-blockmaxsize", settings.value("MaximumGeneratedBlockSize").toString().toStdString()))
